@@ -20,6 +20,7 @@ npm run quartz -- build --serve
 
 Pushes to `main` run `.github/workflows/deploy.yml`, which builds the site and
 deploys `public` as static assets to the `binrev-dev` Cloudflare Worker.
+The Worker is served from the `binrev.dev` custom domain configured in Cloudflare.
 
 The GitHub repository must define these Actions secrets:
 
