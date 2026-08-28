@@ -1,4 +1,4 @@
-name: Deploy BinRev to Cloudflare Pages
+name: Deploy BinRev to Cloudflare Workers
 
 on:
   push:
@@ -38,10 +38,11 @@ jobs:
       - name: Build site
         run: npm run quartz -- build
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=binrev-dev
+          wranglerVersion: "4.127.0"
+          command: deploy
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
