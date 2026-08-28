@@ -51,3 +51,23 @@ body[data-slug$="/index"] .page-listing .meta,
 body[data-slug$="/index"] .page-listing .tags {
   display: none;
 }
+
+// Subdued semantic emphasis for prose. These selectors deliberately exclude
+// fenced code blocks and all navigation/UI text.
+html[saved-theme="dark"] .markdown-rendered :not(pre) > code {
+  background-color: rgba(190, 78, 52, 0.12);
+  color: #d98255;
+}
+
+html[saved-theme="dark"] .markdown-rendered strong {
+  color: #d6b65c;
+}
+
+html[saved-theme="light"] .markdown-rendered :not(pre) > code {
+  background-color: rgba(166, 67, 42, 0.1);
+  color: #a94f35;
+}
+
+html[saved-theme="light"] .markdown-rendered strong {
+  color: #8a6d1f;
+}
