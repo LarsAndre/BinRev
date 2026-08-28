@@ -71,3 +71,38 @@ html[saved-theme="light"] .markdown-rendered :not(pre) > code {
 html[saved-theme="light"] .markdown-rendered strong {
   color: #8a6d1f;
 }
+
+// Reader mode should use the space released by the sidebars without turning
+// the article into an edge-to-edge wall of text. Keep the invisible sidebars
+// fixed at the viewport edges so their existing hover-to-reveal behavior—and
+// therefore the reader-mode toggle—continues to work.
+@media all and ($desktop) {
+  html[reader-mode="on"] .page {
+    max-width: 100%;
+  }
+
+  html[reader-mode="on"] .page > #quartz-body {
+    box-sizing: border-box;
+    grid-template-columns: minmax(0, 68.75rem);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "grid-header"
+      "grid-center"
+      "grid-footer";
+    justify-content: center;
+    padding-inline: clamp(2rem, 6vw, 6rem);
+
+    > .sidebar {
+      position: fixed;
+      width: $sidePanelWidth;
+    }
+
+    > .sidebar.left {
+      left: 0;
+    }
+
+    > .sidebar.right {
+      right: 0;
+    }
+  }
+}
