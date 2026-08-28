@@ -119,3 +119,19 @@ html[saved-theme="light"] .markdown-rendered strong {
 .page[data-frame="excalidraw"] .excalidraw-sidebar-toggle {
   transition: none !important;
 }
+
+// Establish an explicit stacking order so the full-viewport drawing never
+// becomes the click target above the drawer controls during an SPA morph.
+.page[data-frame="excalidraw"] .excalidraw-stage {
+  position: relative;
+  z-index: 0;
+}
+
+.page[data-frame="excalidraw"] .excalidraw-sidebar {
+  z-index: 100;
+}
+
+.page[data-frame="excalidraw"] .excalidraw-sidebar-toggle {
+  z-index: 101;
+  pointer-events: auto;
+}

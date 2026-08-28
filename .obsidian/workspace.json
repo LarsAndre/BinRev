@@ -1,0 +1,239 @@
+{
+  "main": {
+    "id": "ecb3b65e1ef4767b",
+    "type": "split",
+    "children": [
+      {
+        "id": "af1489ca5adcfe05",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8f3c4cee899c2e8d",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "content/01-Resources/DrawingLowLevelStructures.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "DrawingLowLevelStructures.excalidraw"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "2cbb1b5457e15a9b",
+    "type": "split",
+    "children": [
+      {
+        "id": "215e38cc804a17bc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f7cc7df5640055e1",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "583a2a6fb08f1c61",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "e344fb1ecc084e6b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "90977b92d85a5773",
+    "type": "split",
+    "children": [
+      {
+        "id": "9c1dfc6c22e6ccd3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "66d03c095f6777d9",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "content/01-Resources/DrawingLowLevelStructures.excalidraw.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "8c0efa90338cbdc4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "content/01-Resources/DrawingLowLevelStructures.excalidraw.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "689857ddbf6aee6d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "e023235cf8e9ffed",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "c2db940dff73ff59",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "content/01-Resources/DrawingLowLevelStructures.excalidraw.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-excalidraw-plugin:New drawing": false
+    }
+  },
+  "active": "f7cc7df5640055e1",
+  "lastOpenFiles": [
+    "node_modules/preact/hooks/src/internal.d.ts",
+    "node_modules/preact/hooks/src/index.js",
+    "node_modules/preact/hooks/dist/hooks.umd.js",
+    "node_modules/preact/hooks/dist/hooks.umd.js.map",
+    "node_modules/preact/hooks/src/index.d.ts",
+    "node_modules/preact/hooks/dist/hooks.module.js",
+    "node_modules/preact/hooks/dist/hooks.module.js.map",
+    "node_modules/preact/hooks/dist/hooks.js.map",
+    "node_modules/preact/hooks/dist/hooks.mjs",
+    "node_modules/preact/hooks/dist/hooks.js",
+    "node_modules/preact/hooks/package.json",
+    "node_modules/mdast-util-phrasing/readme.md",
+    "node_modules/mdast-util-mdxjs-esm/readme.md",
+    "node_modules/define-data-property/README.md",
+    "node_modules/define-data-property/CHANGELOG.md",
+    "node_modules/ccount/readme.md",
+    "public/tags/index-og-image.webp",
+    "public/tags/zloader-og-image.webp",
+    "public/tags/banking_trojan-og-image.webp",
+    "public/tags/bokbot-og-image.webp",
+    "public/tags/icedid-og-image.webp",
+    "public/tags/loader-og-image.webp",
+    "public/tags/malware-og-image.webp",
+    "public/02-analyzed-samples/index-og-image.webp",
+    "public/01-resources/malloaderflow.excalidraw-og-image.webp",
+    "public/01-resources/drawinglowlevelstructures.excalidraw-og-image.webp",
+    "node_modules/micromark-util-classify-character/readme.md",
+    "node_modules/unist-util-visit/readme.md",
+    "node_modules/micromark-util-normalize-identifier/readme.md",
+    "node_modules/micromark-util-decode-string/readme.md",
+    "node_modules/web-namespaces/readme.md",
+    "node_modules/is-plain-obj/readme.md",
+    "node_modules/is-number/README.md",
+    "node_modules/bytes/Readme.md",
+    "node_modules/bytes/History.md",
+    "node_modules/resolve/SECURITY.md",
+    "node_modules/semver/README.md",
+    "node_modules/property-information/readme.md",
+    "node_modules/@ungap/structured-clone/README.md",
+    "node_modules/hastscript/readme.md",
+    "node_modules/balanced-match/README.md",
+    "node_modules/@img/sharp-win32-x64/README.md",
+    "node_modules/@myriaddreamin/typst-ts-node-compiler/README.md",
+    "node_modules/@clack/core/README.md",
+    "node_modules/@clack/core/CHANGELOG.md",
+    "node_modules/available-typed-arrays/CHANGELOG.md"
+  ]
+}

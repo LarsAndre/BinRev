@@ -271,7 +271,10 @@ plugins:
     options:
       enableInteraction: true
       darkMode: auto
-      exportPadding: 20
+      # The community renderer computes bounds from element geometry. Extra
+      # room prevents rough strokes, arrowheads, and font overhang from being
+      # clipped at the generated SVG viewBox edge.
+      exportPadding: 48
     order: 50
 layout:
   groups:

@@ -35,7 +35,7 @@ body {
 
 p,
 ul,
-text,
+text:not(.excalidraw-container text),
 a,
 tr,
 td,

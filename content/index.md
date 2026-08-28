@@ -4,11 +4,12 @@ description: Malware analysis and reverse-engineering notes
 ---
 
 # BinRev
+Malware analysis and reversing notes.
 
-Malware analysis and reverse-engineering notes.
-
-This site is a growing collection of practical research covering static analysis,
-dynamic analysis, reverse engineering, and the techniques used by malicious software.
+# 1 - Resources
+# 2 - Analyzed Samples
+- [[IcedID]]
+- [[Zloader]]
 
 ```mermaid
 flowchart LR

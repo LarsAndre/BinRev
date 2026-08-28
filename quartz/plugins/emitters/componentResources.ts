@@ -6,6 +6,8 @@ import { QuartzEmitterPlugin } from "../types"
 import spaRouterScript from "../../components/scripts/spa.inline"
 // @ts-ignore
 import popoverScript from "../../components/scripts/popover.inline"
+// @ts-ignore
+import excalidrawNavigationScript from "../../components/scripts/excalidraw-navigation.inline"
 import baseStyles from "../../styles/base.scss"
 import customStyles from "../../styles/custom.scss"
 import popoverStyle from "../../components/styles/popover.scss"
@@ -83,6 +85,10 @@ async function joinScripts(scripts: string[]): Promise<string> {
 
 function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentResources) {
   const cfg = ctx.cfg.configuration
+
+  // This listener is deliberately global and persistent: Excalidraw pages can
+  // be entered after the site's component scripts have already been loaded.
+  componentResources.afterDOMLoaded.push(excalidrawNavigationScript)
 
   // popovers
   if (cfg.enablePopovers) {
