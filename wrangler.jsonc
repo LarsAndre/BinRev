@@ -2,6 +2,12 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "binrev-dev",
   "compatibility_date": "2026-08-28",
+  "routes": [
+    {
+      "pattern": "binrev.dev",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page"
