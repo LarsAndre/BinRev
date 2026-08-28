@@ -113,3 +113,9 @@ html[saved-theme="light"] .markdown-rendered strong {
 .page[data-frame="excalidraw"].excalidraw-sidebar-open .excalidraw-frame {
   padding-left: 0 !important;
 }
+
+.page[data-frame="excalidraw"] .excalidraw-frame,
+.page[data-frame="excalidraw"] .excalidraw-sidebar,
+.page[data-frame="excalidraw"] .excalidraw-sidebar-toggle {
+  transition: none !important;
+}
