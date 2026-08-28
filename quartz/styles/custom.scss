@@ -106,3 +106,10 @@ html[saved-theme="light"] .markdown-rendered strong {
     }
   }
 }
+
+// Keep the Excalidraw navigation drawer above the canvas. Shifting the entire
+// full-screen SVG when the drawer opens forces an expensive resize/repaint and
+// can temporarily freeze more complex drawings in some browsers.
+.page[data-frame="excalidraw"].excalidraw-sidebar-open .excalidraw-frame {
+  padding-left: 0 !important;
+}
