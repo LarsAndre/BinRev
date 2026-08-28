@@ -15,12 +15,136 @@ html[saved-theme="light"] {
 }
 
 html[saved-theme="dark"] {
-  --light: #161618 !important;
-  --lightgray: #393639 !important;
-  --gray: #646464 !important;
-  --darkgray: #d4d4d4 !important;
-  --dark: #ebebec !important;
-  --secondary: #7b97aa !important;
-  --tertiary: #84a59d !important;
-  --highlight: rgba(143, 159, 169, 0.15) !important;
+  --light: #101419 !important;
+  --lightgray: #29313b !important;
+  --gray: #6f7d8c !important;
+  --darkgray: #c8d1dc !important;
+  --dark: #f1f5f9 !important;
+  --secondary: #4da3ff !important;
+  --tertiary: #5ed3c6 !important;
+  --highlight: rgba(77, 163, 255, 0.16) !important;
+  --bn-surface: #161b22;
+  --bn-surface-raised: #1c222b;
+  --bn-border: #303946;
+  --bn-code: #0b0f14;
+  --bn-orange: #f0a45d;
+  --bn-green: #78d381;
+  --bn-red: #ef6b73;
+}
+
+html[saved-theme="dark"] body {
+  background:
+    radial-gradient(circle at 50% -20rem, rgba(77, 163, 255, 0.08), transparent 42rem),
+    var(--light);
+}
+
+html[saved-theme="dark"] .page-title a {
+  color: var(--dark);
+  font-family: var(--codeFont);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+html[saved-theme="dark"] .page-title a::before {
+  color: var(--tertiary);
+  content: "0x ";
+  font-size: 0.7em;
+  letter-spacing: 0;
+}
+
+html[saved-theme="dark"] .sidebar {
+  border-color: var(--bn-border);
+}
+
+html[saved-theme="dark"] .center > article,
+html[saved-theme="dark"] .page-header {
+  background: color-mix(in srgb, var(--bn-surface) 92%, transparent);
+  border: 1px solid var(--bn-border);
+}
+
+html[saved-theme="dark"] .page-header {
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  padding: 1.25rem 1.5rem 0.5rem;
+}
+
+html[saved-theme="dark"] .center > article {
+  border-radius: 0 0 8px 8px;
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+html[saved-theme="dark"] .article-title,
+html[saved-theme="dark"] article h1,
+html[saved-theme="dark"] article h2,
+html[saved-theme="dark"] article h3 {
+  letter-spacing: -0.025em;
+}
+
+html[saved-theme="dark"] article h2 {
+  border-bottom: 1px solid var(--bn-border);
+  padding-bottom: 0.35rem;
+}
+
+html[saved-theme="dark"] a.internal {
+  text-decoration-color: rgba(77, 163, 255, 0.35);
+  text-underline-offset: 0.2em;
+}
+
+html[saved-theme="dark"] a.internal:hover {
+  color: #83c0ff;
+  text-decoration-color: var(--tertiary);
+}
+
+html[saved-theme="dark"] pre,
+html[saved-theme="dark"] code {
+  border-color: var(--bn-border);
+}
+
+html[saved-theme="dark"] pre {
+  background: var(--bn-code);
+  box-shadow: inset 3px 0 0 rgba(77, 163, 255, 0.5);
+}
+
+html[saved-theme="dark"] :not(pre) > code {
+  background: var(--bn-surface-raised);
+  color: var(--tertiary);
+}
+
+html[saved-theme="dark"] blockquote {
+  background: rgba(94, 211, 198, 0.05);
+  border-color: var(--tertiary);
+}
+
+html[saved-theme="dark"] .search-button,
+html[saved-theme="dark"] .search-container,
+html[saved-theme="dark"] .graph-outer,
+html[saved-theme="dark"] .explorer-content {
+  border-color: var(--bn-border);
+}
+
+html[saved-theme="dark"] .search-button:hover,
+html[saved-theme="dark"] button:hover {
+  background-color: rgba(77, 163, 255, 0.1);
+}
+
+html[saved-theme="dark"] ::selection {
+  background: rgba(77, 163, 255, 0.35);
+  color: #fff;
+}
+
+html[saved-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #3a4654;
+  border: 2px solid var(--light);
+  border-radius: 999px;
+}
+
+@media (max-width: 800px) {
+  html[saved-theme="dark"] .page-header,
+  html[saved-theme="dark"] .center > article {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
