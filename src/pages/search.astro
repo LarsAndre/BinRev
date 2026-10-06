@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Search"><div class="container listing-page"><p class="eyebrow">Search the notebook</p><h1>Find the details<span class="brand-dot">.</span></h1><p class="page-description">Search analyses, tags, code, and resource descriptions.</p><form class="search-box" role="search" action="/search/"><label class="visually-hidden" for="search-input">Search notes</label><input id="search-input" name="q" type="search" placeholder="Try RC4, VirtualAlloc, or PE format…" autocomplete="off" /></form><p class="search-status" id="search-status" role="status">Type a term to search.</p><div id="search-results"></div><noscript><p>Search needs JavaScript. You can browse <a class="text-link" href="/analyses/">all analyses</a> or <a class="text-link" href="/resources/">resources</a>.</p></noscript></div>
+  <script>
+    type SearchEntry = { title: string; url: string; category: string; description: string; text: string; };
+    const input = document.querySelector<HTMLInputElement>('#search-input')!;
+    const results = document.querySelector<HTMLElement>('#search-results')!;
+    const status = document.querySelector<HTMLElement>('#search-status')!;
+    let entries: SearchEntry[] | undefined;
+    let pending: Promise<SearchEntry[]> | undefined;
+    let revision = 0;
+    async function search() {
+      const current = ++revision;
+      const query = input.value.trim();
+      const url = new URL(location.href);
+      if (query) url.searchParams.set('q', query); else url.searchParams.delete('q');
+      history.replaceState(null, '', url);
+      results.replaceChildren();
+      if (!query) { status.textContent = 'Type a term to search.'; return; }
+      status.textContent = 'Searching…';
+      try {
+        pending ||= fetch('/search-index.json').then(response => { if (!response.ok) throw new Error('Search index unavailable'); return response.json(); });
+        entries ||= await pending;
+        if (current !== revision) return;
+        const terms = query.toLowerCase().split(/\s+/);
+        const matches = entries!.filter(entry => terms.every(term => `${entry.title} ${entry.description} ${entry.category} ${entry.text}`.toLowerCase().includes(term)));
+        status.textContent = matches.length ? `${matches.length} result${matches.length === 1 ? '' : 's'} for “${query}”` : `No results for “${query}”. Try a different term.`;
+        for (const entry of matches) {
+          const link = document.createElement('a'); link.className = 'search-result'; link.href = entry.url;
+          const category = document.createElement('p'); category.className = 'eyebrow'; category.textContent = entry.category;
+          const title = document.createElement('h2'); title.textContent = `${entry.title} ↗`;
+          const description = document.createElement('p'); description.textContent = entry.description;
+          link.append(category, title, description); results.append(link);
+        }
+      } catch { if (current === revision) { pending = undefined; status.textContent = 'Search could not load. Please try again.'; } }
+    }
+    input.value = new URLSearchParams(location.search).get('q') || '';
+    input.addEventListener('input', search);
+    input.form?.addEventListener('submit', event => { event.preventDefault(); search(); });
+    search();
+  </script>
+</Base>

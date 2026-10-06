@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+src/content/analyses/
+public/attachments/
+public/diagrams/pe-format.svg
+public/originals/
+public/_redirects
+playwright-report/
+test-results/

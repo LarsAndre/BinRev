@@ -1,0 +1,64 @@
+---
+interface Props { image?: string; title?: string; }
+const { image, title = 'Diagram' } = Astro.props;
+---
+{image && <figure class="diagram-figure"><a class="diagram-preview" href={image} data-diagram data-title={title} aria-label={`Expand ${title}`}><img src={image} alt={title} /><span class="diagram-open">Explore diagram <span aria-hidden="true">⛶</span></span></a><figcaption>Open to pan, zoom, or explore in fullscreen.</figcaption></figure>}
+<dialog id="diagram-viewer" aria-labelledby="viewer-title">
+  <div class="viewer-toolbar">
+    <div class="viewer-heading"><span class="eyebrow">DIAGRAM VIEWER</span><h2 id="viewer-title">Diagram</h2></div>
+    <div class="viewer-controls">
+      <button type="button" data-viewer="out" aria-label="Zoom out">−</button>
+      <output id="viewer-zoom" aria-label="Zoom level">100%</output>
+      <button type="button" data-viewer="in" aria-label="Zoom in">+</button>
+      <button type="button" data-viewer="fit">Fit</button>
+      <a id="viewer-download" download aria-label="Download diagram">↓ SVG</a>
+      <button type="button" data-viewer="close" aria-label="Close diagram viewer">✕</button>
+    </div>
+  </div>
+  <div class="viewer-viewport" tabindex="0" aria-label="Diagram canvas. Drag to pan. Scroll or pinch to zoom. Arrow keys pan; plus and minus zoom; zero fits the diagram.">
+    <img class="viewer-image" alt="" draggable="false" />
+    <p class="viewer-message" role="status">Loading diagram…</p>
+  </div>
+  <div class="viewer-help mono">DRAG TO PAN <span>·</span> SCROLL / PINCH TO ZOOM <span>·</span> ESC TO CLOSE</div>
+</dialog>
+<script>
+  import '../scripts/diagram-viewer';
+</script>
+<style is:global>
+  .diagram-figure { margin: 0; }
+  .diagram-preview { position: relative; display: block; background: #fff; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; padding: 28px; cursor: zoom-in; }
+  .diagram-preview img { display: block; width: 100%; max-height: 540px; object-fit: contain; }
+  .diagram-open { position: absolute; bottom: 18px; right: 18px; font: 12px var(--mono); background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px; display: flex; gap: 20px; box-shadow: 0 2px 15px #0003; }
+  .diagram-figure figcaption { padding: 15px 0; color: var(--muted); font-size: 12px; }
+  body.viewer-open { overflow: hidden; }
+  #diagram-viewer { width: 100vw; height: 100dvh; max-width: 100vw; max-height: 100dvh; margin: 0; padding: 0; border: 0; background: var(--bg); color: var(--text); }
+  #diagram-viewer[open] { display: flex; flex-direction: column; }
+  #diagram-viewer::backdrop { background: #0009; }
+  .viewer-toolbar { padding: 17px 24px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .viewer-heading h2 { margin: 5px 0 0; font-size: 16px; letter-spacing: -.015em; }
+  .viewer-heading .eyebrow { font-size: 8px; }
+  .viewer-controls { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+  .viewer-controls button, .viewer-controls a { min-width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); color: var(--text); padding: 0 10px; font: 12px var(--mono); }
+  .viewer-controls button:hover, .viewer-controls a:hover { border-color: var(--accent); }
+  .viewer-controls output { min-width: 46px; text-align: center; font: 11px var(--mono); color: var(--muted); }
+  .viewer-viewport { position: relative; flex: 1; min-height: 0; overflow: hidden; background: #e8e8e8; touch-action: none; cursor: grab; user-select: none; }
+  .viewer-viewport:focus-visible { outline-offset: -3px; }
+  .viewer-viewport.dragging { cursor: grabbing; }
+  .viewer-image { position: absolute; top: 0; left: 0; max-width: none; transform-origin: 0 0; will-change: transform; pointer-events: none; }
+  .viewer-image[hidden], .viewer-message[hidden] { display: none; }
+  .viewer-message { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #29373a; background: #fff; border-radius: 4px; padding: 12px 18px; font-size: 14px; text-align: center; }
+  .viewer-help { border-top: 1px solid var(--line); text-align: center; padding: 11px; font: 8px var(--mono); letter-spacing: .06em; color: var(--muted); }
+  .viewer-help span { margin: 0 12px; }
+  .article-image-link { display: block; cursor: zoom-in; }
+  @media(max-width: 750px) {
+    .diagram-preview { padding: 15px 15px 65px; }
+    .diagram-open { bottom: 15px; right: 15px; font-size: 10px; }
+    .diagram-figure figcaption { font-size: 10px; }
+    .viewer-toolbar { padding: 12px; gap: 12px; flex-wrap: wrap; }
+    .viewer-heading { width: 100%; }
+    .viewer-heading h2 { font-size: 14px; }
+    .viewer-controls { width: 100%; justify-content: space-between; gap: 4px; }
+    .viewer-help { font-size: 7px; }
+    .viewer-help span { margin: 0 4px; }
+  }
+</style>

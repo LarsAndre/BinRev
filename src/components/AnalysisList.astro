@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { summary } from '../lib/analyses';
+interface Props { entries: CollectionEntry<'analyses'>[]; }
+const { entries } = Astro.props;
+---
+<div class="analysis-list">
+  {entries.map((entry, index) => (
+    <a class="analysis-row" href={`/analyses/${entry.id}/`}>
+      <span class="row-number">{String(index + 1).padStart(2, '0')}</span>
+      <div class="row-content"><div class="row-title"><h3>{entry.data.title}</h3><span class="note-status">{String(entry.data.completed) === 'true' ? 'Completed' : 'Working notes'}</span></div><p>{summary(entry)}</p><div class="tags">{entry.data.tags.slice(0, 4).map(tag => <span>{tag.replaceAll('_', ' ')}</span>)}</div></div>
+      <span class="row-arrow" aria-hidden="true">↗</span>
+    </a>
+  ))}
+</div>

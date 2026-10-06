@@ -1,0 +1,58 @@
+---
+import '../styles/site.css';
+interface Props { title?: string; description?: string; }
+const { title, description = 'Malware analysis and reverse-engineering notes.' } = Astro.props;
+const pathname = Astro.url.pathname;
+const pageTitle = title ? `${title} · BinRev` : 'BinRev · Malware analysis & reverse engineering';
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1c1b19" />
+    <link rel="preload" href="/fonts/JetBrainsMonoNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(pathname, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(pathname, Astro.site)} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      try { document.documentElement.dataset.theme = localStorage.getItem('binrev-theme') === 'light' ? 'light' : 'dark'; } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="BinRev home"><span class="brand-mark" aria-hidden="true">[b]</span> BinRev<span class="brand-dot">.</span></a>
+        <nav aria-label="Main navigation">
+          <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>Overview</a>
+          <a href="/analyses/" aria-current={pathname.startsWith('/analyses/') ? 'page' : undefined}>Analyses</a>
+          <a href="/resources/" aria-current={pathname.startsWith('/resources/') ? 'page' : undefined}>Resources</a>
+        </nav>
+        <div class="header-actions">
+          <a class="icon-button" href="/search/" aria-label="Search notes"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></a>
+          <button class="icon-button" id="theme-toggle" aria-label="Switch to light theme"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
+          <a class="github-link" href="https://github.com/LarsAndre/BinRev">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer"><div><a class="footer-brand" href="/">BinRev<span class="brand-dot">.</span></a></div><a href="https://github.com/LarsAndre/BinRev">Source on GitHub ↗</a></footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('#theme-toggle');
+      const updateLabel = () => toggle?.setAttribute('aria-label', `Switch to ${document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'} theme`);
+      updateLabel();
+      toggle?.addEventListener('click', () => {
+        const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        try { localStorage.setItem('binrev-theme', theme); } catch {}
+        updateLabel();
+      });
+    </script>
+  </body>
+</html>

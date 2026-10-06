@@ -1,0 +1,9 @@
+---
+import { resources } from '../lib/catalog';
+---
+<div class="resource-grid">{resources.map(resource => (
+  <a class="resource-card" href={`/resources/${resource.slug}/`}>
+    <div class="resource-preview"><img src={resource.image} alt="" loading="lazy" /><span class="resource-number">{resource.number}</span></div>
+    <div class="resource-card-body"><span class="eyebrow">{resource.category}</span><h3>{resource.title} <span aria-hidden="true">↗</span></h3><p>{resource.description}</p><span class="resource-type">{resource.source}</span></div>
+  </a>
+))}</div>

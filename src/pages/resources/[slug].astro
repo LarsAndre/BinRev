@@ -1,0 +1,8 @@
+---
+import Base from '../../layouts/Base.astro';
+import DiagramViewer from '../../components/DiagramViewer.astro';
+import { resources } from '../../lib/catalog';
+export function getStaticPaths() { return resources.map(resource => ({ params: { slug: resource.slug }, props: { resource } })); }
+const { resource } = Astro.props;
+---
+<Base title={resource.title} description={resource.description}><div class="container resource-page"><a class="breadcrumb" href="/resources/">← All resources</a><p class="eyebrow">{resource.category} / {resource.source}</p><h1>{resource.title}<span class="brand-dot">.</span></h1><p class="page-description">{resource.description}</p><DiagramViewer image={resource.image} title={resource.title} /><div class="article-end"><a class="text-link" href={resource.image} download>Download SVG ↓</a><a class="text-link" href={resource.original} download>Download original ↓</a></div></div></Base>
