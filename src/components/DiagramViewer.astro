@@ -44,7 +44,7 @@ const { image, title = 'Diagram' } = Astro.props;
   .viewer-viewport { position: relative; flex: 1; min-height: 0; overflow: hidden; background: #e8e8e8; touch-action: none; cursor: grab; user-select: none; }
   .viewer-viewport:focus-visible { outline-offset: -3px; }
   .viewer-viewport.dragging { cursor: grabbing; }
-  .viewer-image { position: absolute; top: 0; left: 0; max-width: none; transform-origin: 0 0; will-change: transform; pointer-events: none; }
+  .viewer-image { position: absolute; top: 0; left: 0; max-width: none; transform-origin: 0 0; pointer-events: none; }
   .viewer-image[hidden], .viewer-message[hidden] { display: none; }
   .viewer-message { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #29373a; background: #fff; border-radius: 4px; padding: 12px 18px; font-size: 14px; text-align: center; }
   .viewer-help { border-top: 1px solid var(--line); text-align: center; padding: 11px; font: 8px var(--mono); letter-spacing: .06em; color: var(--muted); }

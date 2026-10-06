@@ -38,6 +38,8 @@ diagram canvas with pan, zoom, keyboard controls, fullscreen, and downloads.
 Linked screenshots from Obsidian's `Embedded Files` section are embedded in the
 SVG export. Missing image references fail the export instead of producing an
 incomplete drawing. Mouse-wheel zoom uses normalized deltas and small increments.
+Zoom resizes the image's rendering viewport so SVG text is repainted at the current
+size. PNG screenshots embedded in a drawing retain their original resolution.
 After editing a drawing, run:
 
 ```bash

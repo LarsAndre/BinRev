@@ -93,7 +93,7 @@ test('wheel zoom changes gradually for pixel, line, and page deltas', async ({ p
   await page.getByRole('link', { name: 'Expand Low-level Windows structures' }).click();
   await expect(page.locator('.viewer-image')).toBeVisible();
   const viewport = page.locator('.viewer-viewport');
-  const scale = () => page.locator('.viewer-image').evaluate(image => new DOMMatrix(getComputedStyle(image).transform).a);
+  const scale = () => page.locator('.viewer-image').evaluate((image: HTMLImageElement) => image.getBoundingClientRect().width / image.naturalWidth);
   for (const deltaMode of [0, 1, 2]) {
     for (const deltaY of [-120, 120]) {
       const before = await scale();

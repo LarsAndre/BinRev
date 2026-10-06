@@ -15,7 +15,11 @@ let opener: HTMLElement | null = null;
 const pointers = new Map<number, { x: number; y: number }>();
 
 function draw() {
-  image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+  // Resize the SVG's rendering viewport instead of enlarging a composited bitmap.
+  // Keep transforms for panning only so text is repainted at the current zoom.
+  image.style.width = `${image.naturalWidth * scale}px`;
+  image.style.height = `${image.naturalHeight * scale}px`;
+  image.style.transform = `translate(${x}px, ${y}px)`;
   output.value = `${Math.round(scale * 100)}%`;
 }
 
@@ -50,8 +54,6 @@ function open(link: HTMLAnchorElement) {
   document.body.classList.add('viewer-open');
   image.onload = () => {
     ready = true;
-    image.style.width = `${image.naturalWidth}px`;
-    image.style.height = `${image.naturalHeight}px`;
     image.hidden = false;
     message.hidden = true;
     fit();

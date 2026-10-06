@@ -28,8 +28,9 @@ vault in `content/` as the authoring source. Continue work on the Astro site.
 - `npm run check`: zero errors, warnings, or hints.
 - `npm test`: 10 content-conversion, diagram, and preparation tests pass.
 - `npm run build`: successful static build.
-- `npm run test:browser`: 16 tests pass across desktop/mobile, including decoding
-  all IcedID/Zloader screenshots and opening them in the image viewer.
+- `npm run test:browser`: 18 tests pass across desktop/mobile, including decoding
+  all IcedID/Zloader screenshots, opening them in the image viewer, and comparing
+  zoomed SVG text with native vector rendering at 405%.
 - `npm run test:browser:dev`: 4 tests pass, checking both notes before and after
   content preparation runs against a live Astro development server.
 - Both Excalidraw drawings were exported with the local Chromium renderer.
@@ -49,6 +50,9 @@ vault in `content/` as the authoring source. Continue work on the Astro site.
   ProcessHandleObjects.png, which were previously absent from SVG exports.
 - Wheel zoom is normalized for pixels, lines, and pages, and limited to roughly
   six percent per event. Button and keyboard zoom use fifteen percent steps.
+- SVG zoom changes the image's rendered dimensions, with translation used only
+  for panning. The viewer avoids `will-change: transform`, which can cache a bitmap
+  and blur vector text when enlarged. Embedded PNGs still have fixed resolution.
 - Content preparation preserves the generated-note and public asset directories,
   and only rewrites changed files. Removing/recreating attachment directories had
   invalidated Vite's public-file index and caused 404s despite PNG files existing
