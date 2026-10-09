@@ -29,11 +29,11 @@
     "@emnapi/runtime": "^1.11.3",
     "@excalidraw/excalidraw": "0.18.1",
     "@playwright/test": "^1.56.0",
-    "esbuild": "^0.27.0",
+    "esbuild": "^0.28.2",
     "lz-string": "^1.5.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "description": "Malware analysis and reverse-engineering notes"
 }
