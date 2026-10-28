@@ -1,74 +1,91 @@
 # BinRev
 
-Source for [binrev.dev](https://binrev.dev), an Astro site containing malware
-analysis and reverse-engineering notes.
+Source for [binrev.dev](https://binrev.dev), an Astro website for malware analysis
+and reverse-engineering notes, hosted on Cloudflare Workers.
 
-## Authoring
+## Add content
 
-Open the `content` directory as an Obsidian vault. The vault remains the source
-of truth; edit notes there, not in the generated `src/content/analyses` directory.
-The build converts Obsidian wikilinks, image embeds, and callouts to Markdown/HTML.
-The overview groups notes into Analyzed Samples, Windows Internals, Binary Ninja,
-and Other. The site uses self-hosted JetBrains Mono Nerd Font and the
-[Srcery palette](https://terminalcolors.com/themes/srcery/default/) for dark mode, including syntax
-highlighting. Font licensing is included in `public/fonts/OFL.txt`.
-Notes with `draft: true` or `publish: false` (including quoted strings) are excluded
-from generated content, attachments, routes, search, and the sitemap.
+**Edit `content/`. Numbered folders become homepage sections automatically.**
+You can use Obsidian or any Markdown editor.
 
-Preview the site locally with Node.js 22.12 or newer:
+```text
+content/
+  index.md                         Homepage title and description
+  01-Analyzed-Samples/              IcedID and Zloader
+  02-Windows-Internals/             PE format and Windows structures
+  03-Binary-Ninja/                  Ready for your notes
+  04-Other/                        Malware loader workflow
+  05-Zig-Malware-Analysis/          Ziggler (draft)
+  Attachments/                     Screenshots
+  Diagrams/                        SVGs and Excalidraw originals
+  Templates/                       Copyable note and diagram templates
+```
 
-```bash
+To add a section, create a folder such as `content/06-Linux-Internals/` with an
+`index.md` inside it:
+
+```markdown
+---
+title: Linux Internals
+---
+```
+
+Then add Markdown files in that folder. The website discovers them, creates their
+pages, and includes them in search and the sitemap. No Astro or TypeScript edits
+are needed. Section numbers follow folder order; an empty section shows
+“No notes published yet.”
+
+Use `draft: true` or `publish: false` to keep a note off the website. Ziggler
+remains unpublished. These flags affect the website; files committed to a public
+GitHub repository are still readable there.
+
+See **[the authoring guide](docs/authoring.md)** for publishing Ziggler, ordering
+notes, adding diagrams, linking notes, and keeping URLs stable.
+
+## Preview and validate
+
+Install Node.js 22.19 or newer (the current Node.js 22 release is used in CI):
+
+```sh
 npm ci --ignore-scripts
 npm run dev
 ```
 
-Run `npm run check`, `npm test`, and `npm run build` before deployment.
-`npm run preview` serves the built site. Run `npm run test:browser` after a build;
-install the test browser with `npx playwright install chromium` first, or set
-`CHROMIUM_PATH` to an existing Chromium executable.
-`npm run test:browser:dev` checks that screenshots still load after content
-preparation runs with the development server active. Preparation preserves watched
-directories and unchanged files, removing stale generated assets individually.
+Open the local URL printed by Astro. Changes under `content/` regenerate the
+website while the development server runs, including new folders and notes.
 
-## Diagrams
-
-Excalidraw drawings are exported to committed SVGs in `public/diagrams`, with
-embedded fonts and padding to prevent clipped strokes. The site provides a light
-diagram canvas with pan, zoom, keyboard controls, fullscreen, and downloads.
-Linked screenshots from Obsidian's `Embedded Files` section are embedded in the
-SVG export. Missing image references fail the export instead of producing an
-incomplete drawing. Mouse-wheel zoom uses normalized deltas and small increments.
-Zoom resizes the image's rendering viewport so SVG text is repainted at the current
-size. PNG screenshots embedded in a drawing retain their original resolution.
-After editing a drawing, run:
-
-```bash
-CHROMIUM_PATH=/usr/bin/chromium npm run export-diagrams
+```sh
+npm run validate        # Type checking, content tests, and production build
+npm run preview         # Serve dist/ after building
+npm run test:browser    # Desktop and mobile checks against dist/
+npm run test:browser:dev # Check images and adding content during development
 ```
 
-Omit `CHROMIUM_PATH` when using Playwright's installed Chromium. Commit the updated
-SVGs with the vault changes. Normal builds use these exports without a browser.
-The PE reference SVG and original Excalidraw documents are copied during content
-preparation. Canvas files and arbitrary Mermaid blocks do not yet have renderers.
+Browser tests need `npx playwright install chromium`, or `CHROMIUM_PATH` pointing
+to an existing Chromium/Chrome executable. See the authoring guide for diagram
+exports and Windows examples.
 
-## Structure
+## Repository layout
 
-- `src/pages`: overview, analyses, resources, search, redirects, sitemap, and 404.
-- `src/layouts`, `src/components`, `src/styles`: shared Astro UI and styles.
-- `scripts`: content preparation and Excalidraw export.
-- `tests`: Markdown conversion and desktop/mobile browser checks.
-- `legacy`, `quartz`, `docs`, `quartz.*`: retained Quartz source/configuration for reference.
+| Directory | Purpose |
+| --- | --- |
+| `content/` | The notes and resources you edit |
+| `docs/authoring.md` | Current authoring instructions |
+| `src/` | Astro pages, shared components, and styles |
+| `scripts/` | Content discovery, conversion, asset copying, diagram exports |
+| `tests/` | Content tests and browser checks |
+| `public/` | Static site files; generated assets are ignored |
+| `legacy/` | Archived Quartz implementation and earlier unused styling |
 
-The active development, build, and deployment commands use Astro. Legacy analysis
-and resource URLs redirect to the new routes.
+`src/content/notes/`, `src/content/sections/`, and generated assets under `public/`
+are build output. They are recreated from `content/`; edit the source instead.
+The site's Srcery theme and self-hosted JetBrains Mono Nerd Font are retained.
+The font license is in `public/fonts/OFL.txt`.
 
 ## Deployment
 
-Pushes to `main` run `.github/workflows/deploy.yml`, which builds the site and
-deploys `dist` as static assets to the `binrev-dev` Cloudflare Worker.
-The Worker is served from the `binrev.dev` custom domain configured in Cloudflare.
-
-The GitHub repository must define these Actions secrets:
-
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_API_TOKEN`
+Pull requests run `npm run validate`. Pushes to `main` validate and deploy `dist/`
+to the `binrev-dev` Cloudflare Worker using `.github/workflows/deploy.yml`.
+The custom domain `binrev.dev` is configured in Cloudflare. GitHub Actions needs
+the `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` repository secrets.
+Existing public analysis/resource URLs and legacy Quartz redirects are retained.

@@ -5,12 +5,12 @@ import { fileURLToPath } from 'node:url';
 import { loadDrawing } from '../scripts/excalidraw.mjs';
 
 const directories = {
-  resourceDirectory: fileURLToPath(new URL('../content/01-Resources/', import.meta.url)),
+  resourceDirectory: fileURLToPath(new URL('../content/Diagrams/', import.meta.url)),
   attachmentDirectory: fileURLToPath(new URL('../content/Attachments/', import.meta.url)),
 };
 
 test('low-level Windows drawing includes both Obsidian-linked screenshots', async () => {
-  const source = await readFile(new URL('../content/01-Resources/DrawingLowLevelStructures.excalidraw.md', import.meta.url), 'utf8');
+  const source = await readFile(new URL('../content/Diagrams/DrawingLowLevelStructures.excalidraw.md', import.meta.url), 'utf8');
   const drawing = await loadDrawing(source, directories);
   const images = drawing.elements.filter(element => element.type === 'image' && !element.isDeleted);
   assert.equal(images.length, 2);

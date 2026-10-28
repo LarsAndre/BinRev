@@ -9,11 +9,13 @@ test('home links to published notes and theme choice survives navigation', async
   expect(await page.locator('body').evaluate(body => getComputedStyle(body).color)).toBe('rgb(252, 232, 195)');
   await expect(page.getByRole('heading', { level: 2 })).toHaveText([
     '1 - Analyzed Samples', '2 - Windows Internals', '3 - Binary Ninja', '4 - Other',
+    '5 - Zig Malware Analysis',
   ]);
   const samples = page.getByRole('region', { name: '1 - Analyzed Samples' });
   await expect(samples.getByRole('link')).toHaveCount(2);
   await expect(page.getByRole('region', { name: '2 - Windows Internals' }).getByRole('link')).toHaveCount(2);
   await expect(page.getByRole('region', { name: '4 - Other' }).getByRole('link')).toHaveText('Malware loader workflow→');
+  await expect(page.getByRole('region', { name: '5 - Zig Malware Analysis' })).toContainText('No notes published yet.');
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check('16px "JetBrains Mono Nerd Font"'))).toBe(true);
   await expect(page.getByText('Ziggler')).toHaveCount(0);
@@ -22,6 +24,7 @@ test('home links to published notes and theme choice survives navigation', async
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await samples.getByRole('link', { name: 'IcedID' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('IcedID.');
+  await expect(page.getByRole('link', { name: 'View source' })).toHaveAttribute('href', 'https://github.com/LarsAndre/BinRev/blob/main/content/01-Analyzed-Samples/IcedID.md');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await expect(page.locator('.prose img').first()).toBeVisible();
   await expect(page.getByRole('heading', { name: '5.2.2 - RC4 Key (sub_4014F9)', exact: true })).toBeVisible();

@@ -1,5 +1,8 @@
 # Astro migration checkpoint
 
+> Historical checkpoint. See [authoring.md](authoring.md) for the current workflow.
+> Quartz is now archived in legacy/quartz-site/, and sections come from numbered folders.
+
 The active goal is to move BinRev from Quartz to Astro while keeping the Obsidian
 vault in `content/` as the authoring source. Continue work on the Astro site.
 

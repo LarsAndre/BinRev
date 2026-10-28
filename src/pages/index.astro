@@ -1,29 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import { publishedAnalyses } from '../lib/analyses';
-import { resources } from '../lib/catalog';
-const entries = await publishedAnalyses();
-const windowsResources = ['pe-format', 'low-level-structures'].map(slug => resources.find(resource => resource.slug === slug)!);
-const otherResources = resources.filter(resource => !windowsResources.includes(resource));
+import { getEntry } from 'astro:content';
+import { notebookSections } from '../lib/content';
+const sections = await notebookSections();
+const { data: home } = (await getEntry('home', 'index'))!;
 ---
 <Base>
   <div class="container notebook-index">
-    <header class="index-header"><h1>BinRev</h1><p>Malware analysis and reverse-engineering notes.</p></header>
-    <section class="index-section" aria-labelledby="samples-heading">
-      <h2 id="samples-heading">1 - Analyzed Samples</h2>
-      <ul class="note-links">{entries.map(entry => <li><a href={`/analyses/${entry.id}/`}>{entry.data.title}<span aria-hidden="true">→</span></a></li>)}</ul>
-    </section>
-    <section class="index-section" aria-labelledby="windows-heading">
-      <h2 id="windows-heading">2 - Windows Internals</h2>
-      <ul class="note-links">{windowsResources.map(resource => <li><a href={`/resources/${resource.slug}/`}>{resource.title}<span aria-hidden="true">→</span></a></li>)}</ul>
-    </section>
-    <section class="index-section" aria-labelledby="binary-ninja-heading">
-      <h2 id="binary-ninja-heading">3 - Binary Ninja</h2>
-      <p class="empty-notes">No notes published yet.</p>
-    </section>
-    <section class="index-section" aria-labelledby="other-heading">
-      <h2 id="other-heading">4 - Other</h2>
-      <ul class="note-links">{otherResources.map(resource => <li><a href={`/resources/${resource.slug}/`}>{resource.title}<span aria-hidden="true">→</span></a></li>)}</ul>
-    </section>
+    <header class="index-header"><h1>{home.title}</h1><p>{home.description}</p></header>
+    {sections.map((section, index) => (
+      <section class="index-section" aria-labelledby={`${section.id}-heading`}>
+        <h2 id={`${section.id}-heading`}>{index + 1} - {section.data.title}</h2>
+        {section.notes.length ? (
+          <ul class="note-links">{section.notes.map(entry => <li><a href={entry.data.url}>{entry.data.title}<span aria-hidden="true">→</span></a></li>)}</ul>
+        ) : <p class="empty-notes">No notes published yet.</p>}
+      </section>
+    ))}
   </div>
 </Base>

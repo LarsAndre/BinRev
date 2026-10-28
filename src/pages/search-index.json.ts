@@ -1,20 +1,13 @@
 import type { APIRoute } from 'astro';
-import { publishedAnalyses, summary } from '../lib/analyses';
-import { resources } from '../lib/catalog';
+import { publishedNotes, summary } from '../lib/content';
 
 export const GET: APIRoute = async () => {
-  const analyses = (await publishedAnalyses()).map(entry => ({
+  const entries = (await publishedNotes()).map(entry => ({
     title: entry.data.title,
-    url: `/analyses/${entry.id}/`,
-    category: 'Analysis',
+    url: entry.data.url,
+    category: entry.data.sectionTitle,
     description: summary(entry),
     text: `${entry.data.tags.join(' ')} ${entry.body || ''}`,
   }));
-  return new Response(JSON.stringify([...analyses, ...resources.map(resource => ({
-    title: resource.title,
-    url: `/resources/${resource.slug}/`,
-    category: resource.category,
-    description: resource.description,
-    text: resource.description,
-  }))]), { headers: { 'Content-Type': 'application/json' } });
+  return new Response(JSON.stringify(entries), { headers: { 'Content-Type': 'application/json' } });
 };

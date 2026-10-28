@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { mkdir, writeFile, rm } from 'node:fs/promises';
 
 test.use({ reducedMotion: 'reduce' });
 
@@ -14,6 +15,30 @@ async function decodeImages(page: Page, expectedCount: number) {
     await image.evaluate((image: HTMLImageElement) => image.decode());
   }
 }
+
+test('new sections and notes appear during development and are searchable', async ({ page, request }) => {
+  test.skip(process.env.BINREV_TEST_DEV !== '1', 'Exercises the content watcher on the development server.');
+  const directory = new URL('../../content/99-Authoring-Test/', import.meta.url);
+  const filename = new URL('Browser authoring check.md', directory);
+  try {
+    await page.goto('/');
+    await mkdir(directory);
+    await writeFile(filename, '---\ntitle: Browser authoring check\n---\n# A new note\nWatcher verification text.');
+    await expect(page.getByRole('heading', { name: '6 - Authoring Test', exact: true })).toBeVisible();
+    await page.getByRole('link', { name: 'Browser authoring check' }).click();
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Browser authoring check.');
+    await expect(page.locator('.prose')).toContainText('Watcher verification text.');
+    await expect(page.getByRole('link', { name: 'View source' })).toHaveAttribute('href', /99-Authoring-Test\/Browser%20authoring%20check\.md$/);
+    await page.goto('/search/?q=Watcher');
+    await expect(page.locator('#search-results')).toContainText('Browser authoring check');
+    expect(await (await request.get('/sitemap.xml')).text()).toContain('/notes/browser-authoring-check/');
+    await page.goto('/');
+    await rm(filename);
+    await expect(page.getByRole('region', { name: '6 - Authoring Test' })).toContainText('No notes published yet.');
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
 
 for (const [note, imageCount] of [['icedid', 7], ['zloader', 9]] as const) {
   test(`${note} screenshots decode and open in the image viewer`, async ({ page }, testInfo) => {

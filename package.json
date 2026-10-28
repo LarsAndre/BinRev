@@ -8,18 +8,18 @@
     "build": "npm run prepare-content && astro build",
     "preview": "astro preview --host 127.0.0.1",
     "check": "npm run prepare-content && astro check",
+    "validate": "npm run check && npm test && npm run build",
     "test": "node --test tests/*.test.mjs",
     "test:browser": "playwright test",
-    "test:browser:dev": "BINREV_TEST_DEV=1 playwright test",
+    "test:browser:dev": "node scripts/test-browser-dev.mjs",
     "export-diagrams": "node scripts/export-diagrams.mjs"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.19.0"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.1",
     "astro": "7.3.5",
-    "clsx": "^2.1.1",
     "github-slugger": "^2.0.0",
     "yaml": "^2.9.1"
   },

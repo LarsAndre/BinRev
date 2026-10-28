@@ -2,9 +2,13 @@ node_modules/
 dist/
 .astro/
 src/content/analyses/
+src/content/notes/
+src/content/sections/
+.tools/
 public/attachments/
-public/diagrams/pe-format.svg
+public/diagrams/
 public/originals/
 public/_redirects
 playwright-report/
 test-results/
+.obsidian/workspace.json

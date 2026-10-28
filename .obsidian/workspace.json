@@ -187,8 +187,9 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "f7cc7df5640055e1",
+  "active": "8f3c4cee899c2e8d",
   "lastOpenFiles": [
+    "content/01-Resources/DrawingLowLevelStructures.excalidraw.md",
     "node_modules/preact/hooks/src/internal.d.ts",
     "node_modules/preact/hooks/src/index.js",
     "node_modules/preact/hooks/dist/hooks.umd.js",
@@ -199,7 +200,6 @@
     "node_modules/preact/hooks/dist/hooks.js.map",
     "node_modules/preact/hooks/dist/hooks.mjs",
     "node_modules/preact/hooks/dist/hooks.js",
-    "node_modules/preact/hooks/package.json",
     "node_modules/mdast-util-phrasing/readme.md",
     "node_modules/mdast-util-mdxjs-esm/readme.md",
     "node_modules/define-data-property/README.md",

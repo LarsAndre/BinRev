@@ -3,12 +3,14 @@ import { unified } from '@astrojs/markdown-remark';
 import scrollableTables from './scripts/tables.mjs';
 import { redirects } from './scripts/redirects.mjs';
 import srceryTheme from './scripts/srcery-theme.mjs';
+import watchContent from './scripts/watch-content.mjs';
 
 export default defineConfig({
   site: 'https://binrev.dev',
   output: 'static',
   trailingSlash: 'always',
   redirects,
+  integrations: [watchContent()],
   markdown: {
     processor: unified({ rehypePlugins: [scrollableTables] }),
     shikiConfig: {

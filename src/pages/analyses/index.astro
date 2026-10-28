@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AnalysisList from '../../components/AnalysisList.astro';
-import { publishedAnalyses } from '../../lib/analyses';
+import { publishedAnalyses } from '../../lib/content';
 const entries = await publishedAnalyses();
 ---
 <Base title="Analyses"><div class="container listing-page"><a class="breadcrumb" href="/">BinRev /</a><p class="eyebrow">01 / Analyzed samples</p><h1>Malware analyses<span class="brand-dot">.</span></h1><p class="page-description">Unpacking loaders, tracing execution, and extracting configurations. These are working notes from the analysis process.</p><div class="listing-meta">{entries.length} published analyses</div><AnalysisList entries={entries} /></div></Base>

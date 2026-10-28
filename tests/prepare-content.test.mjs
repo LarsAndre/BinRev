@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import { stat, writeFile, rm, readdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
 test('content preparation prunes stale files while preserving watched directories and unchanged content', async () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
-  const output = new URL('../src/content/analyses/', import.meta.url);
+  const output = new URL('../src/content/notes/', import.meta.url);
   const note = new URL('icedid.md', output);
   const stale = new URL(`__test-draft-${process.pid}.md`, output);
   const attachments = new URL('../public/attachments/', import.meta.url);
@@ -29,9 +30,9 @@ test('content preparation prunes stale files while preserving watched directorie
       assert.equal(after.ino, before[index].ino, `${file.pathname}: inode preserved`);
       if (after.isFile()) assert.equal(after.mtimeMs, before[index].mtimeMs, `${file.pathname}: unchanged file preserved`);
     }
-    assert.equal((await readdir(output)).includes(fileURLToPath(stale).split('/').pop()), false);
-    assert.equal((await readdir(attachments)).includes(fileURLToPath(staleImage).split('/').pop()), false);
-    assert.equal((await readdir(originals)).includes(fileURLToPath(staleOriginal).split('/').pop()), false);
+    assert.equal((await readdir(output)).includes(path.basename(fileURLToPath(stale))), false);
+    assert.equal((await readdir(attachments)).includes(path.basename(fileURLToPath(staleImage))), false);
+    assert.equal((await readdir(originals)).includes(path.basename(fileURLToPath(staleOriginal))), false);
   } finally {
     await rm(stale, { force: true });
     await rm(staleImage, { force: true });

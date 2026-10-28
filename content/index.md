@@ -1,21 +1,13 @@
 ---
 title: BinRev
-description: Malware analysis and reverse-engineering notes
+description: Malware analysis and reverse-engineering notes.
 ---
 
-# BinRev
-Malware analysis and reversing notes.
+# Website overview
 
-# 1 - Resources
-# 2 - Analyzed Samples
-- [[IcedID]]
-- [[Zloader]]
+The title and description above appear on the homepage. Sections and links are
+generated from the numbered folders beside this file. Their index.md files set
+section titles; their other Markdown files supply the notes.
 
-```mermaid
-flowchart LR
-    Sample --> Triage
-    Triage --> Static[Static analysis]
-    Triage --> Dynamic[Dynamic analysis]
-    Static --> Findings
-    Dynamic --> Findings
-```
+See [the authoring guide](../docs/authoring.md) for adding sections and publishing
+notes. Copyable starting points are in Templates/.

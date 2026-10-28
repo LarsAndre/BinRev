@@ -7,14 +7,13 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadDrawing } from './excalidraw.mjs';
+import { loadContent, contentPath } from './content-model.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const temporary = await mkdtemp(path.join(tmpdir(), 'binrev-svg-export-'));
 const assetRoot = path.join(root, 'node_modules/@excalidraw/excalidraw/dist/prod');
-const diagrams = [
-  ['MalLoaderFlow.excalidraw.md', 'malware-loader-flow.svg'],
-  ['DrawingLowLevelStructures.excalidraw.md', 'low-level-structures.svg'],
-];
+const { notes } = await loadContent(root);
+const diagrams = notes.filter(note => note.kind === 'resource' && note.original.endsWith('.excalidraw.md'));
 let server;
 let browser;
 try {
@@ -62,11 +61,13 @@ try {
   page.on('pageerror', (error) => console.error(error.message));
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
   await page.waitForFunction(() => typeof window.exportDiagram === 'function');
-  await mkdir(path.join(root, 'public/diagrams'), { recursive: true });
-  for (const [source, destination] of diagrams) {
-    const markdown = await readFile(path.join(root, 'content/01-Resources', source), 'utf8');
+  for (const { original: source, diagram: destination } of diagrams) {
+    const sourcePath = contentPath(path.join(root, 'content'), source);
+    const destinationPath = contentPath(path.join(root, 'content'), destination);
+    await mkdir(path.dirname(destinationPath), { recursive: true });
+    const markdown = await readFile(sourcePath, 'utf8');
     const drawing = await loadDrawing(markdown, {
-      resourceDirectory: path.join(root, 'content/01-Resources'),
+      resourceDirectory: path.dirname(sourcePath),
       attachmentDirectory: path.join(root, 'content/Attachments'),
     });
     const svg = await page.evaluate(async (drawing) => {
@@ -85,7 +86,7 @@ try {
       });
       return new XMLSerializer().serializeToString(svg);
     }, drawing);
-    await writeFile(path.join(root, 'public/diagrams', destination), svg + '\n');
+    await writeFile(destinationPath, svg + '\n');
     console.log(`Exported ${source} → ${destination}`);
   }
 } finally {

@@ -4,8 +4,13 @@ import { parse } from 'yaml';
 
 export function splitNote(source) {
   const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
-  if (!match) throw new Error('A note must start with YAML frontmatter');
-  return { data: parse(match[1]), frontmatter: match[0], body: source.slice(match[0].length) };
+  if (!match) {
+    if (source.startsWith('---\n') || source.startsWith('---\r\n')) throw new Error('Unclosed YAML frontmatter');
+    return { data: {}, frontmatter: '', body: source };
+  }
+  const data = parse(match[1]) ?? {};
+  if (typeof data !== 'object' || Array.isArray(data)) throw new Error('YAML frontmatter must be a mapping');
+  return { data, frontmatter: match[0], body: source.slice(match[0].length) };
 }
 
 export function isPublished(data) {
@@ -50,7 +55,8 @@ export function convertMarkdown(source, { routes = new Map(), attachments = new 
       });
       return part.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, target, label) => {
         const [note, anchor] = target.split('#');
-        const href = note ? routes.get(path.basename(note).replace(/\.md$/, '').toLowerCase()) : '';
+        const key = note.replaceAll('\\', '/').replace(/\.md$/, '').toLowerCase();
+        const href = note ? routes.get(key) ?? routes.get(path.posix.basename(key)) : '';
         if (href === undefined) {
           warnings.push(`Unresolved note: ${target}`);
           return `${label || note} *(note unavailable)*`;
