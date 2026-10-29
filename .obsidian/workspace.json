@@ -27,16 +27,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/04-Bootkits/0x0 Windows Boot Process.md",
+                "file": "content/02-Windows-Internals/Low-level Windows structures.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "0x0 Windows Boot Process"
+              "title": "Low-level Windows structures"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -205,24 +204,27 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "49902d84b57d4f1c",
+  "active": "bae6939bef245304",
   "lastOpenFiles": [
-    "content/02-Windows-Internals/index.md",
-    "content/05-Misc/index.md",
-    "content/02-Windows-Internals/Portable Executable format.md",
+    "content/04-Bootkits/0x1 Boot Process Security.md",
+    "content/04-Bootkits/0x0 Windows Boot Process.md",
     "content/02-Windows-Internals/Low-level Windows structures.md",
+    "content/02-Windows-Internals/Portable Executable format.md",
+    "content/05-Misc/Malware loader workflow.md",
+    "content/05-Misc/index.md",
+    "content/Diagrams/MalLoaderFlow.excalidraw.md",
+    "content/Diagrams/DrawingLowLevelStructures.excalidraw.md",
+    "content/Diagrams/low-level-structures.svg",
+    "content/Diagrams/malware-loader-flow.svg",
+    "content/02-Windows-Internals/index.md",
     "content/01-Analyzed-Samples/Zloader.md",
     "content/01-Analyzed-Samples/Ziggler.md",
     "content/01-Analyzed-Samples/index.md",
     "content/01-Analyzed-Samples/IcedID.md",
-    "content/04-Bootkits/0x0 Windows Boot Process.md",
     "content/Diagrams/windows-boot-process-overview.excalidraw.md",
     "content/Diagrams/windows-boot-vbr.excalidraw.md",
-    "content/04-Bootkits/0x1 Boot Process Security.md",
     "content/Diagrams/windows-boot-hard-drive-layout.excalidraw.md",
     "content/04-Bootkits/index.md",
-    "content/Diagrams/low-level-structures.svg",
-    "content/Diagrams/DrawingLowLevelStructures.excalidraw.md",
     "content/01-Resources/DrawingLowLevelStructures.excalidraw.md",
     "node_modules/preact/hooks/src/internal.d.ts",
     "node_modules/preact/hooks/src/index.js",
@@ -247,11 +249,8 @@
     "public/tags/loader-og-image.webp",
     "public/tags/malware-og-image.webp",
     "public/02-analyzed-samples/index-og-image.webp",
-    "public/01-resources/malloaderflow.excalidraw-og-image.webp",
     "node_modules/micromark-util-classify-character/readme.md",
     "node_modules/unist-util-visit/readme.md",
-    "node_modules/micromark-util-normalize-identifier/readme.md",
-    "node_modules/micromark-util-decode-string/readme.md",
-    "node_modules/web-namespaces/readme.md"
+    "node_modules/micromark-util-normalize-identifier/readme.md"
   ]
 }

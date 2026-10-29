@@ -5,8 +5,8 @@ permalink:
 tags:
   - bootkit
   - knowledge
-draft: "true"
-publish: "false"
+draft: "false"
+publish: "true"
 date:
 completed: "false"
 difficulty:
