@@ -25,14 +25,12 @@
             "id": "49902d84b57d4f1c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "content/02-Windows-Internals/Low-level Windows structures.md",
-                "mode": "source",
-                "source": false
+                "file": "content/Diagrams/windows-boot-hard-drive-layout.excalidraw.md"
               },
-              "icon": "lucide-file",
-              "title": "Low-level Windows structures"
+              "icon": "excalidraw-icon",
+              "title": "windows-boot-hard-drive-layout.excalidraw"
             }
           }
         ]
@@ -206,6 +204,13 @@
   },
   "active": "bae6939bef245304",
   "lastOpenFiles": [
+    "content/Diagrams/windows-boot-hard-drive-layout.excalidraw.md",
+    "content/Diagrams/windows-boot-process-overview.svg",
+    "content/Diagrams/windows-boot-vbr.excalidraw.md",
+    "content/Diagrams/windows-boot-process-overview.excalidraw.md",
+    "content/04-Bootkits/0x0 Windows Boot Process.md",
+    "content/02-Windows-Internals/Low-level Windows structures.md",
+    "content/04-Bootkits/0x1 Boot Process Security.md",
     "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-mobile/home.png",
     "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-mobile",
     "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-desktop/home.png",
@@ -231,16 +236,11 @@
     "dist/diagrams/pe-format.svg",
     "dist/diagrams/malware-loader-flow.svg",
     "dist/diagrams/low-level-structures.svg",
-    "dist/attachments/Zloader_09.png",
-    "dist/attachments/Zloader_07.png",
     "public/originals/__test-draft-14164.md",
     "src/content/notes/__test-draft-14164.md",
     "src/content/sections/misc.md",
     "src/content/sections/bootkits.md",
     "src/content/notes/0x0-windows-boot-process.md",
-    "content/04-Bootkits/0x1 Boot Process Security.md",
-    "content/04-Bootkits/0x0 Windows Boot Process.md",
-    "content/02-Windows-Internals/Low-level Windows structures.md",
     "content/02-Windows-Internals/Portable Executable format.md",
     "content/05-Misc/Malware loader workflow.md",
     "content/05-Misc/index.md",
@@ -248,9 +248,6 @@
     "content/Diagrams/DrawingLowLevelStructures.excalidraw.md",
     "content/02-Windows-Internals/index.md",
     "content/01-Analyzed-Samples/Zloader.md",
-    "content/01-Analyzed-Samples/Ziggler.md",
-    "content/01-Analyzed-Samples/index.md",
-    "content/01-Analyzed-Samples/IcedID.md",
-    "content/Diagrams/windows-boot-process-overview.excalidraw.md"
+    "content/01-Analyzed-Samples/Ziggler.md"
   ]
 }
