@@ -29,6 +29,16 @@ test('attachments preserve width, escape alt text, and reject missing files', ()
   assert.throws(() => convertMarkdown(note('![[absent.png]]')), /Missing attachment/);
 });
 
+test('Excalidraw embeds use exported SVGs, retain width, and leave code examples alone', () => {
+  const drawing = { original: 'Diagrams/Boot process.excalidraw.md', diagram: 'Diagrams/Boot process.svg' };
+  const resolveDiagram = file => file.endsWith('.excalidraw') ? drawing : undefined;
+  const result = convertMarkdown(note('![[Boot process.excalidraw|1000]]\n`![[Example.excalidraw]]`'), { resolveDiagram });
+  assert.match(result.markdown, /src="\/diagrams\/Boot%20process.svg" alt="Boot process" width="1000"/);
+  assert.match(result.markdown, /`!\[\[Example.excalidraw\]\]`/);
+  assert.deepEqual([...result.diagrams], [drawing]);
+  assert.equal(result.images.size, 0);
+});
+
 test('code fences and inline examples preserve Obsidian syntax and hashes', () => {
   const body = '# Heading\n`[[Example]]`\n```python\n# Code comment\nvalue = "![[example.png]]"\n```\n> [!tip] Useful tip';
   const result = convertMarkdown(note(body));

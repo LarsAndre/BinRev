@@ -5,6 +5,7 @@ import { stringify } from 'yaml';
 import { convertMarkdown, splitNote } from './markdown.mjs';
 import { loadContent, contentPath } from './content-model.mjs';
 import { redirects } from './redirects.mjs';
+import { diagramResolver } from './diagram-assets.mjs';
 
 // Preserve directories and unchanged files for Astro/Vite's live watchers.
 async function syncFiles(directory, files) {
@@ -25,6 +26,7 @@ async function syncFiles(directory, files) {
 export async function prepareContent(root) {
   const source = path.join(root, 'content');
   const { sections, notes, routes } = await loadContent(root);
+  const resolveDiagram = await diagramResolver(root, notes);
   const attachments = new Set(await readdir(path.join(source, 'Attachments')).catch(error => {
     if (error.code === 'ENOENT') return []; throw error;
   }));
@@ -41,7 +43,16 @@ export async function prepareContent(root) {
   }
   for (const note of notes) {
     const { body, source: markdown, ...data } = note;
-    const converted = convertMarkdown(markdown, { routes, attachments });
+    let converted;
+    try { converted = convertMarkdown(markdown, { routes, attachments, resolveDiagram }); }
+    catch (error) { throw new Error(`${note.sourcePath}: ${error.message}`, { cause: error }); }
+    for (const drawing of converted.diagrams) {
+      try { await addAsset(diagrams, drawing.diagram); }
+      catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+        throw new Error(`${note.sourcePath}: Missing SVG export ${drawing.diagram}. Run npm run export-diagrams and commit the SVG alongside its drawing.`, { cause: error });
+      }
+    }
     if (note.kind === 'resource') {
       data.image = `/diagrams/${encodeURIComponent(await addAsset(diagrams, note.diagram))}`;
       data.original = `/originals/${encodeURIComponent(await addAsset(originals, note.original))}`;

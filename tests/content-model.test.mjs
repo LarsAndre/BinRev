@@ -6,6 +6,7 @@ import path from 'node:path';
 import { loadContent } from '../scripts/content-model.mjs';
 import { prepareContent } from '../scripts/prepare-content.mjs';
 import { splitNote, convertMarkdown } from '../scripts/markdown.mjs';
+import { diagramResolver } from '../scripts/diagram-assets.mjs';
 
 async function fixture(t) {
   const root = await mkdtemp(path.join(tmpdir(), 'binrev-content-test-'));
@@ -95,4 +96,35 @@ test('duplicate slugs and invalid metadata fail with the source path', async t =
   await assert.rejects(loadContent(root), /Asset must be inside content/);
   await put('01-Notes/Second.md', '---\norder: first\n---\n');
   await assert.rejects(loadContent(root), /01-Notes\/Second.md: order must be a number/);
+});
+
+test('embedded drawings resolve without resource pages and only referenced SVGs are published', async t => {
+  const { root, put } = await fixture(t);
+  await put('01-Bootkits/Boot.md', '![[windows-boot.excalidraw|1000]]');
+  await put('01-Bootkits/Draft.md', '---\ndraft: true\n---\n![[private.excalidraw]]');
+  await put('Diagrams/windows-boot.excalidraw.md', '---\nexcalidraw-plugin: parsed\n---\nDrawing');
+  await put('Diagrams/windows-boot.svg', '<svg>Boot diagram</svg>');
+  await put('Diagrams/private.excalidraw.md', '---\npublish: false\n---\nPrivate');
+  await put('Diagrams/private.svg', '<svg>Private</svg>');
+  await prepareContent(root);
+  const generated = await readFile(path.join(root, 'src/content/notes/boot.md'), 'utf8');
+  assert.match(generated, /src="\/diagrams\/windows-boot.svg"/);
+  assert.deepEqual(await readdir(path.join(root, 'public/diagrams')), ['windows-boot.svg']);
+  const resolve = await diagramResolver(root, []);
+  assert.equal(resolve('Diagrams/windows-boot.excalidraw.md').diagram, 'Diagrams/windows-boot.svg');
+  assert.throws(() => resolve('private.excalidraw'), /Drawing is unpublished/);
+  await rm(path.join(root, 'content/Diagrams/windows-boot.svg'));
+  await assert.rejects(prepareContent(root), /01-Bootkits\/Boot.md: Missing SVG export.*Run npm run export-diagrams/);
+  assert.equal(await readFile(path.join(root, 'src/content/notes/boot.md'), 'utf8'), generated);
+});
+
+test('drawing embeds reuse resource export paths and ambiguous names require a full path', async t => {
+  const { root, put } = await fixture(t);
+  await put('Diagrams/Boot.excalidraw.md', 'Drawing');
+  await put('Diagrams/Nested/Boot.excalidraw.md', 'Other drawing');
+  const resolve = await diagramResolver(root, [{ kind: 'resource', original: 'Diagrams/Boot.excalidraw.md', diagram: 'Diagrams/custom-boot.svg' }]);
+  assert.throws(() => resolve('Boot.excalidraw'), /Ambiguous drawing/);
+  assert.equal(resolve('Diagrams/Boot.excalidraw').diagram, 'Diagrams/custom-boot.svg');
+  assert.equal(resolve('Diagrams/Nested/Boot.excalidraw.md').diagram, 'Diagrams/Nested/Boot.svg');
+  assert.throws(() => resolve('missing.excalidraw'), /Missing drawing/);
 });

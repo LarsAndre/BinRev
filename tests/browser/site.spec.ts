@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { fileURLToPath } from 'node:url';
+import { loadContent } from '../../scripts/content-model.mjs';
 
 test('home links to published notes and theme choice survives navigation', async ({ page, request }, testInfo) => {
   const errors: string[] = [];
@@ -7,15 +9,16 @@ test('home links to published notes and theme choice survives navigation', async
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('BinRev');
   expect(await page.locator('body').evaluate(body => getComputedStyle(body).backgroundColor)).toBe('rgb(28, 27, 25)');
   expect(await page.locator('body').evaluate(body => getComputedStyle(body).color)).toBe('rgb(252, 232, 195)');
-  await expect(page.getByRole('heading', { level: 2 })).toHaveText([
-    '1 - Analyzed Samples', '2 - Windows Internals', '3 - Binary Ninja', '4 - Other',
-    '5 - Zig Malware Analysis',
-  ]);
+  const { sections, notes } = await loadContent(fileURLToPath(new URL('../../', import.meta.url)));
+  await expect(page.getByRole('heading', { level: 2 })).toHaveText(sections.map((section, index) => `${index + 1} - ${section.title}`));
+  for (const [index, section] of sections.entries()) {
+    const region = page.getByRole('region', { name: `${index + 1} - ${section.title}` });
+    const entries = notes.filter(note => note.section === section.id);
+    await expect(region.getByRole('link')).toHaveCount(entries.length);
+    for (const entry of entries) await expect(region.getByRole('link', { name: entry.title, exact: true })).toHaveAttribute('href', entry.url);
+    if (!entries.length) await expect(region).toContainText('No notes published yet.');
+  }
   const samples = page.getByRole('region', { name: '1 - Analyzed Samples' });
-  await expect(samples.getByRole('link')).toHaveCount(2);
-  await expect(page.getByRole('region', { name: '2 - Windows Internals' }).getByRole('link')).toHaveCount(2);
-  await expect(page.getByRole('region', { name: '4 - Other' }).getByRole('link')).toHaveText('Malware loader workflow→');
-  await expect(page.getByRole('region', { name: '5 - Zig Malware Analysis' })).toContainText('No notes published yet.');
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check('16px "JetBrains Mono Nerd Font"'))).toBe(true);
   await expect(page.getByText('Ziggler')).toHaveCount(0);
@@ -36,6 +39,17 @@ test('home links to published notes and theme choice survives navigation', async
   await expect(page.getByRole('button', { name: 'Standard reading area' })).toHaveAttribute('aria-pressed', 'true');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(errors).toEqual([]);
+});
+
+test('boot-process Excalidraw embed renders and opens in the diagram viewer', async ({ page, request }) => {
+  await page.goto('/notes/0x0-windows-boot-process/');
+  const diagram = page.locator('.prose img[src="/diagrams/windows-boot-process-overview.svg"]');
+  await expect(diagram).toBeVisible();
+  await diagram.evaluate((image: HTMLImageElement) => image.decode());
+  expect((await request.get('/diagrams/windows-boot-process-overview.svg')).ok()).toBe(true);
+  await diagram.click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.locator('.viewer-image').evaluate((image: HTMLImageElement) => image.decode());
 });
 
 test('search finds terms within note bodies and never publishes draft text', async ({ page, request }) => {

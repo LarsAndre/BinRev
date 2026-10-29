@@ -116,6 +116,21 @@ Obsidian Canvas files and arbitrary Mermaid blocks do not yet have renderers.
 
 ## Add a diagram resource
 
+You can also embed an Excalidraw drawing directly inside an ordinary note:
+
+```markdown
+![[windows-boot-process-overview.excalidraw|1000]]
+```
+
+Store the drawing as `content/Diagrams/windows-boot-process-overview.excalidraw.md`.
+Run `npm run export-diagrams` to create the sibling `windows-boot-process-overview.svg`,
+then commit both files. Embeds with the full `Diagrams/...excalidraw.md` path also
+work. The website displays the SVG with the same image viewer as screenshots;
+no separate resource page is required. Only drawings referenced by published
+notes are included. The build reports the note and export command if an SVG is missing.
+
+For a standalone resource page, use the following steps.
+
 Store its SVG and optional original in `content/Diagrams/`. Add a Markdown file
 inside the section where it belongs, or copy `content/Templates/Diagram.md`:
 
@@ -143,8 +158,8 @@ For Excalidraw drawings, export the SVG after editing:
 npm run export-diagrams
 ```
 
-This discovers published diagram entries with `.excalidraw.md` originals, exports
-to their `diagram` paths with embedded fonts and padding, and includes linked
+This discovers both published diagram entries and drawings embedded in published
+notes, exports their SVGs with embedded fonts and padding, and includes linked
 screenshots. Commit the SVG alongside the original. Normal builds use the SVG
 without launching a browser. Browser setup is the same as for browser tests.
 To use an existing Chrome executable in PowerShell:

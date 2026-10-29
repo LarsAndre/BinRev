@@ -1,19 +1,36 @@
 import { build } from 'esbuild';
 import { chromium } from '@playwright/test';
 import { createServer } from 'node:http';
-import { readFile, writeFile, mkdir, mkdtemp, rm } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, mkdtemp, rm, readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadDrawing } from './excalidraw.mjs';
 import { loadContent, contentPath } from './content-model.mjs';
+import { diagramResolver } from './diagram-assets.mjs';
+import { convertMarkdown } from './markdown.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const temporary = await mkdtemp(path.join(tmpdir(), 'binrev-svg-export-'));
 const assetRoot = path.join(root, 'node_modules/@excalidraw/excalidraw/dist/prod');
-const { notes } = await loadContent(root);
-const diagrams = notes.filter(note => note.kind === 'resource' && note.original.endsWith('.excalidraw.md'));
+const { notes, routes } = await loadContent(root);
+const resolveDiagram = await diagramResolver(root, notes);
+const attachments = new Set(await readdir(path.join(root, 'content/Attachments')).catch(error => {
+  if (error.code === 'ENOENT') return []; throw error;
+}));
+const diagrams = new Map();
+function include(drawing) {
+  const previous = diagrams.get(drawing.diagram);
+  if (previous && previous.original !== drawing.original) throw new Error(`Conflicting SVG export: ${drawing.diagram}`);
+  diagrams.set(drawing.diagram, drawing);
+}
+for (const note of notes) {
+  if (note.kind === 'resource' && note.original.endsWith('.excalidraw.md')) include(note);
+  try {
+    for (const drawing of convertMarkdown(note.source, { routes, attachments, resolveDiagram }).diagrams) include(drawing);
+  } catch (error) { throw new Error(`${note.sourcePath}: ${error.message}`, { cause: error }); }
+}
+const temporary = await mkdtemp(path.join(tmpdir(), 'binrev-svg-export-'));
 let server;
 let browser;
 try {
@@ -61,7 +78,7 @@ try {
   page.on('pageerror', (error) => console.error(error.message));
   await page.goto(`http://127.0.0.1:${server.address().port}/`);
   await page.waitForFunction(() => typeof window.exportDiagram === 'function');
-  for (const { original: source, diagram: destination } of diagrams) {
+  for (const { original: source, diagram: destination } of diagrams.values()) {
     const sourcePath = contentPath(path.join(root, 'content'), source);
     const destinationPath = contentPath(path.join(root, 'content'), destination);
     await mkdir(path.dirname(destinationPath), { recursive: true });

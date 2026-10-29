@@ -23,10 +23,11 @@ function escapeHtml(value) {
   })[character]);
 }
 
-export function convertMarkdown(source, { routes = new Map(), attachments = new Set() } = {}) {
+export function convertMarkdown(source, { routes = new Map(), attachments = new Set(), resolveDiagram = () => undefined } = {}) {
   const { frontmatter, body } = splitNote(source);
   const warnings = [];
   const images = new Set();
+  const diagrams = new Set();
   let fence;
   const converted = body.split('\n').map((line) => {
     const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
@@ -46,6 +47,13 @@ export function convertMarkdown(source, { routes = new Map(), attachments = new 
     line = line.split(/(`+[^`]*`+)/g).map((part, index) => {
       if (index % 2) return part;
       part = part.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, file, dimensions) => {
+        const drawing = resolveDiagram(file);
+        if (drawing) {
+          diagrams.add(drawing);
+          const width = dimensions?.match(/^\d+/)?.[0];
+          const alt = path.posix.basename(drawing.original).replace(/\.excalidraw\.md$/, '').replace(/[_-]/g, ' ');
+          return `<img src="/diagrams/${encodeURIComponent(path.posix.basename(drawing.diagram))}" alt="${escapeHtml(alt)}"${width ? ` width="${width}"` : ''} loading="lazy" decoding="async" />`;
+        }
         const name = path.basename(file);
         if (!attachments.has(name)) throw new Error(`Missing attachment: ${file}`);
         images.add(name);
@@ -68,5 +76,5 @@ export function convertMarkdown(source, { routes = new Map(), attachments = new 
     // surrounding Markdown so the following heading/list is parsed normally.
     return /^\s*<img\b[^>]*\/>\s*$/.test(line) ? `\n${line.trim()}\n` : line;
   }).join('\n');
-  return { markdown: frontmatter + converted, images, warnings };
+  return { markdown: frontmatter + converted, images, diagrams, warnings };
 }
