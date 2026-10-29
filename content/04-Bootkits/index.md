@@ -1,4 +1,3 @@
 ---
 title: Bootkits
-type: analyses
 ---

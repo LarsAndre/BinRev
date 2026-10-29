@@ -167,7 +167,7 @@ Hash table:
 |`0xb91352ee`|`NtTerminateProcess`|Custom|
 |`0x45366f2b`|`NtWriteVirtualMemory`|Custom|
 |`0xd3b731b6`|`CreateProcessW`|Custom|
-|`0x40af1c44`|`0x7ff9f250cb90`|Custom|
+|`0x40af1c44`|`OpenThread`|Custom|
 |`0xa924a814`|`RtlAddVectoredExceptionHandler`|Custom|
 |`0x6ab452cb`|`RtlRemoveVectoredExceptionHandler`|Custom|
 |`0x051ea813`|`msedge.exe`|Custom|
@@ -406,3 +406,32 @@ Base64 decode this and we get the flag:
 DDC{Dolph_Ziggler_is_a_beast_:D}
 ```
 # 6 - Develop Communications Emulator
+
+
+```c
+enum MW_ENUM_HASHES : int32_t
+{
+    NtAllocateVirtualMemory = -0x17708179,
+    NtClose = 0x376aa182,
+    NtDelayExecution = -0x46080367,
+    NtFlushInstructionCache = 0x6294fe9a,
+    NtOpenProcess = 0x5d572edb,
+    NtProtectVirtualMemory = 0x26b3c267,
+    NtQueryInformationProcess = 0x21728b11,
+    NtQuerySystemInformation = -0x11da96b9,
+    NtQueueApcThreadEx2 = -0x6db755a,
+    NtTerminateProcess = -0x46ecad12,
+    NtWriteVirtualMemory = 0x45366f2b,
+    CreateProcessW = -0x2c48ce4a,
+    OpenThread = 0x40af1c44,
+    RtlAddVectoredExceptionHandler = -0x56db57ec,
+    RtlRemoveVectoredExceptionHandler = 0x6ab452cb,
+    msedge_exe = 0x51ea813,
+    kernel32_LoadLibraryA = 0x726774c,
+    kernel32_GetProcAddress = 0x7802f749,
+    kernel32_VirtualAlloc = -0x1aac5ba8,
+    kernel32_VirtualProtect = -0x3c751ef0,
+    ntdll_NtFlushInstructionCache = -0x6ba34e51,
+    kernel32_GetNativeSystemInfo = -0x6a61ffcd
+};
+```

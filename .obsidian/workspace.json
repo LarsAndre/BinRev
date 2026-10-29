@@ -4,22 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "af1489ca5adcfe05",
+        "id": "e7a41db1b1a10650",
         "type": "tabs",
         "children": [
           {
-            "id": "8f3c4cee899c2e8d",
+            "id": "bae6939bef245304",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "content/01-Resources/DrawingLowLevelStructures.excalidraw.md"
+                "file": "content/04-Bootkits/0x0 Windows Boot Process.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "excalidraw-icon",
-              "title": "DrawingLowLevelStructures.excalidraw"
+              "icon": "lucide-file",
+              "title": "0x0 Windows Boot Process"
+            }
+          },
+          {
+            "id": "49902d84b57d4f1c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/04-Bootkits/0x0 Windows Boot Process.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "0x0 Windows Boot Process"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,7 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 425.6903190612793
   },
   "right": {
     "id": "90977b92d85a5773",
@@ -177,6 +194,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "mermaid-tools:Open Mermaid Toolbar": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -187,8 +205,24 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "8f3c4cee899c2e8d",
+  "active": "49902d84b57d4f1c",
   "lastOpenFiles": [
+    "content/02-Windows-Internals/index.md",
+    "content/05-Misc/index.md",
+    "content/02-Windows-Internals/Portable Executable format.md",
+    "content/02-Windows-Internals/Low-level Windows structures.md",
+    "content/01-Analyzed-Samples/Zloader.md",
+    "content/01-Analyzed-Samples/Ziggler.md",
+    "content/01-Analyzed-Samples/index.md",
+    "content/01-Analyzed-Samples/IcedID.md",
+    "content/04-Bootkits/0x0 Windows Boot Process.md",
+    "content/Diagrams/windows-boot-process-overview.excalidraw.md",
+    "content/Diagrams/windows-boot-vbr.excalidraw.md",
+    "content/04-Bootkits/0x1 Boot Process Security.md",
+    "content/Diagrams/windows-boot-hard-drive-layout.excalidraw.md",
+    "content/04-Bootkits/index.md",
+    "content/Diagrams/low-level-structures.svg",
+    "content/Diagrams/DrawingLowLevelStructures.excalidraw.md",
     "content/01-Resources/DrawingLowLevelStructures.excalidraw.md",
     "node_modules/preact/hooks/src/internal.d.ts",
     "node_modules/preact/hooks/src/index.js",
@@ -214,26 +248,10 @@
     "public/tags/malware-og-image.webp",
     "public/02-analyzed-samples/index-og-image.webp",
     "public/01-resources/malloaderflow.excalidraw-og-image.webp",
-    "public/01-resources/drawinglowlevelstructures.excalidraw-og-image.webp",
     "node_modules/micromark-util-classify-character/readme.md",
     "node_modules/unist-util-visit/readme.md",
     "node_modules/micromark-util-normalize-identifier/readme.md",
     "node_modules/micromark-util-decode-string/readme.md",
-    "node_modules/web-namespaces/readme.md",
-    "node_modules/is-plain-obj/readme.md",
-    "node_modules/is-number/README.md",
-    "node_modules/bytes/Readme.md",
-    "node_modules/bytes/History.md",
-    "node_modules/resolve/SECURITY.md",
-    "node_modules/semver/README.md",
-    "node_modules/property-information/readme.md",
-    "node_modules/@ungap/structured-clone/README.md",
-    "node_modules/hastscript/readme.md",
-    "node_modules/balanced-match/README.md",
-    "node_modules/@img/sharp-win32-x64/README.md",
-    "node_modules/@myriaddreamin/typst-ts-node-compiler/README.md",
-    "node_modules/@clack/core/README.md",
-    "node_modules/@clack/core/CHANGELOG.md",
-    "node_modules/available-typed-arrays/CHANGELOG.md"
+    "node_modules/web-namespaces/readme.md"
   ]
 }
