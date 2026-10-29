@@ -766,13 +766,20 @@ h3 {
 .prose blockquote p:last-child {
   margin-bottom: 0;
 }
-.prose table {
-  display: block;
+.prose .table-scroll {
   max-width: 100%;
-  overflow: auto;
-  border-collapse: collapse;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
   margin-bottom: 25px;
+}
+.prose table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  margin: 0;
   font-size: 13px;
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 .prose th,
 .prose td {

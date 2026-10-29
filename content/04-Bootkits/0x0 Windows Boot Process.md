@@ -75,9 +75,9 @@ The BCD contains all the information `bootmgr` needs in order to load the OS, in
 
 For bootkit developers, these are the BCD variables of greatest interest:
 
-| Variable name                                 | Description                                                                                                                                                                 | Parameter Type | Parameter ID |
-| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------------ |
-| `BcdLibraryBoolean_DisableIntegrityCheck`     | Disables [[0x1 Boot Process Security#Kernel-Mode Code Signing Policy\|kernel-mode code integrity checks]]                                                                   | Boolean        | `0x16000048` |
-| `BcdOSLoaderBoolean_WinPEMode`                | Tells the kernel to load in preinstallation mode, disabling [[0x1 Boot Process Security#Kernel-Mode Code Signing Policy\|kernel-mode code integrity checks]] as a byproduct | Boolean        | `0x26000022` |
-| `BcdLibraryBoolean_AllowPrereleaseSignatures` | Enables test signing (TESTSIGNING)                                                                                                                                          | Boolean        | `0x16000004` |
+| Variable name                                 | Parameter ID | Parameter Type | Description                                                                                                                                                                 |
+| --------------------------------------------- | ------------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BcdLibraryBoolean_DisableIntegrityCheck`     | `0x16000048` | Boolean        | Disables [[0x1 Boot Process Security#Kernel-Mode Code Signing Policy\|kernel-mode code integrity checks]]                                                                   |
+| `BcdOSLoaderBoolean_WinPEMode`                | `0x26000022` | Boolean        | Tells the kernel to load in preinstallation mode, disabling [[0x1 Boot Process Security#Kernel-Mode Code Signing Policy\|kernel-mode code integrity checks]] as a byproduct |
+| `BcdLibraryBoolean_AllowPrereleaseSignatures` | `0x16000004` | Boolean        | Enables test signing (TESTSIGNING)                                                                                                                                          |
 

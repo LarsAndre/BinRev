@@ -13,6 +13,20 @@
             "state": {
               "type": "markdown",
               "state": {
+                "file": "docs/authoring.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "authoring"
+            }
+          },
+          {
+            "id": "49902d84b57d4f1c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
                 "file": "content/04-Bootkits/0x0 Windows Boot Process.md",
                 "mode": "source",
                 "source": false
@@ -20,20 +34,9 @@
               "icon": "lucide-file",
               "title": "0x0 Windows Boot Process"
             }
-          },
-          {
-            "id": "49902d84b57d4f1c",
-            "type": "leaf",
-            "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "content/Diagrams/windows-boot-hard-drive-layout.excalidraw.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "windows-boot-hard-drive-layout.excalidraw"
-            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -202,52 +205,52 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "bae6939bef245304",
+  "active": "49902d84b57d4f1c",
   "lastOpenFiles": [
-    "content/Diagrams/windows-boot-hard-drive-layout.excalidraw.md",
+    "content/04-Bootkits/0x1 Boot Process Security.md",
     "content/Diagrams/windows-boot-process-overview.svg",
+    "docs/authoring.md",
+    "public/diagrams/windows-boot-vbr.svg",
+    "public/diagrams/windows-boot-hard-drive-layout.svg",
+    "content/Diagrams/windows-boot-vbr.svg",
+    "content/Diagrams/windows-boot-hard-drive-layout.svg",
+    "node_modules/dayjs/locale.json",
+    "node_modules/cytoscape/index.d.ts",
+    "node_modules/chevrotain/LICENSE.txt",
+    "node_modules/cytoscape-fcose/package.json",
+    "node_modules/cytoscape-fcose/cytoscape-fcose.js",
+    "node_modules/dagre-d3-es/LICENSE.md",
+    "node_modules/chevrotain/package.json",
+    "node_modules/cytoscape/README.md",
+    "node_modules/d3-hierarchy/README.md",
+    "node_modules/d3-hierarchy/package.json",
+    "node_modules/css-what/readme.md",
+    "node_modules/d3-interpolate/README.md",
+    "node_modules/d3-interpolate/package.json",
+    "node_modules/d3-scale/README.md",
+    "node_modules/browser-fs-access/index.d.ts",
+    "node_modules/character-entities-legacy/package.json",
+    "node_modules/d3-force/README.md",
+    "node_modules/common-ancestor-path/README.md",
+    "node_modules/common-ancestor-path/LICENSE.md",
+    "node_modules/d3-color/README.md",
+    "node_modules/cose-base/README.md",
+    "node_modules/commander/CHANGELOG.md",
+    "node_modules/cookie-es/README.md",
+    "node_modules/ci-info/CHANGELOG.md",
+    "node_modules/binary-extensions/readme.md",
+    "node_modules/braces/README.md",
+    "content/04-Bootkits/0x0 Windows Boot Process.md",
+    "content/Diagrams/windows-boot-hard-drive-layout.excalidraw.md",
     "content/Diagrams/windows-boot-vbr.excalidraw.md",
     "content/Diagrams/windows-boot-process-overview.excalidraw.md",
-    "content/04-Bootkits/0x0 Windows Boot Process.md",
     "content/02-Windows-Internals/Low-level Windows structures.md",
-    "content/04-Bootkits/0x1 Boot Process Security.md",
     "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-mobile/home.png",
-    "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-mobile",
     "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-desktop/home.png",
-    "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-desktop",
-    "test-results",
-    "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-mobile/trace.zip",
     "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-mobile/error-context.md",
-    "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-desktop/trace.zip",
     "test-results/site-home-links-to-publish-e79c7--choice-survives-navigation-desktop/error-context.md",
-    "dist/01-resources.html/index.html",
-    "dist/01-resources.html",
-    "public/originals/__test-draft-22580.md",
     "public/attachments/__test-draft-22580.png",
-    "src/content/notes/__test-draft-22580.md",
-    "dist/index.html",
-    "dist/zloader.html/index.html",
-    "dist/zloader.html",
     "dist/originals/pe-format.svg",
-    "dist/originals/MalLoaderFlow.excalidraw.md",
-    "dist/originals/DrawingLowLevelStructures.excalidraw.md",
-    "dist/favicon.svg",
-    "dist/diagrams/windows-boot-process-overview.svg",
-    "dist/diagrams/pe-format.svg",
-    "dist/diagrams/malware-loader-flow.svg",
-    "dist/diagrams/low-level-structures.svg",
-    "public/originals/__test-draft-14164.md",
-    "src/content/notes/__test-draft-14164.md",
-    "src/content/sections/misc.md",
-    "src/content/sections/bootkits.md",
-    "src/content/notes/0x0-windows-boot-process.md",
-    "content/02-Windows-Internals/Portable Executable format.md",
-    "content/05-Misc/Malware loader workflow.md",
-    "content/05-Misc/index.md",
-    "content/Diagrams/MalLoaderFlow.excalidraw.md",
-    "content/Diagrams/DrawingLowLevelStructures.excalidraw.md",
-    "content/02-Windows-Internals/index.md",
-    "content/01-Analyzed-Samples/Zloader.md",
-    "content/01-Analyzed-Samples/Ziggler.md"
+    "dist/favicon.svg"
   ]
 }
